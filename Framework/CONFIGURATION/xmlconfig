@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+ 
+<config>
+
+
+<fusebox>
+  <version>8.0.5</version>
+	<builddate>19.12.2012</builddate>
+	<revision>5</revision>
+</fusebox>
+
+
+<encryption>
+  <useencryption>0</useencryption>
+</encryption>
+
+
+<database>
+  <usedatabase>1</usedatabase>
+	<dbtype>2</dbtype>
+	<odbcdriver>MySQL ODBC 5.2 Unicode Driver</odbcdriver>
+	<odbcdbname></odbcdbname>
+	<odbcdbfilename></odbcdbfilename>
+	<odbcdbusername></odbcdbusername>
+	<odbcdbpassword></odbcdbpassword>
+	<odbcdblocation></odbcdblocation>
+	<sqldbname>shortlets</sqldbname>
+	<sqldbserver>townandgownlettingscouk.cxaywhgpje6j.eu-west-1.rds.amazonaws.com</sqldbserver>
+	<sqldbport>3306</sqldbport>
+	<sqldbusername>serveradmin</sqldbusername>
+	<sqldbpassword>Cecest9Elysium08512</sqldbpassword>
+</database>
+
+
+<email>
+  <mxserver>smtp.mandrillapp.com</mxserver>
+	<mxport>587</mxport>
+	<mxuser>support@bookmonsters.co.uk</mxuser>
+	<mxpassword>f2doa7jU1HtrxDl_OhOFow</mxpassword>
+	<mxusessl>0</mxusessl>
+	<mxtimeout>60</mxtimeout>
+	<mxsmtpauth>1</mxsmtpauth>
+	<mxcomponent>2</mxcomponent>
+	<mxsysusername>Administrator</mxsysusername>
+	<mxsyspassword>Cecest9Elysium08512</mxsyspassword>
+	<mxsysdomain></mxsysdomain>
+</email>
+
+
+<directories>
+  <imgbucket>http://imgbucket.townandgownshortlets.co.uk</imgbucket>
+	<appname>Town and Gown Shortlets. Oxford</appname>
+	<fqdn>townandgownshortlets.co.uk</fqdn>
+	<primaryfqdn>townandgownshortlets.co.uk</primaryfqdn>
+	<adminfqdn>admin.townandgownshortlets.co.uk</adminfqdn>
+	<usessl>0</usessl>
+	<sslport>443</sslport>
+	<applanguage>pl</applanguage>
+	<rootpath>/</rootpath>
+	<frameworkpath>/framework</frameworkpath>
+	<errorpath>/framework/corefiles/errortemplate/</errorpath>
+	<apppath>/application</apppath>
+	<actionspath>/application/actions</actionspath>
+	<contentpath>/application/content</contentpath>
+	<templatepath>/application/content/template</templatepath>
+	<indexpath>/application/content</indexpath>
+	<indexfile>dsp_index</indexfile>
+</directories>
+
+
+<contactdetails>
+  <telephone1>01865 30 40 98</telephone1>
+	<telephone2>07585 703 177</telephone2>
+	<address>Town and Gown Lettings Ltd<br/>Clarendon House<br/>2nd Floor<br/>52 Cornmarket Street<br/>Oxford, OX1 3HJ</address>
+	<banksortcode>00-00-00</banksortcode>
+	<bankaccount>000 000 00</bankaccount>
+</contactdetails>
+
+
+<fbopengraph>
+  <fbappid></fbappid>
+	<fbprefix></fbprefix>
+	<fbsitename></fbsitename>
+</fbopengraph>
+
+</config>

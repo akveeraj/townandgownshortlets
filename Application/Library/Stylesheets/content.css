@@ -1,0 +1,737 @@
+#container div.mainheader {
+  display:block;
+	clear:both;
+	padding:8px;
+	font-size:12pt;
+	color:#7a6a51;
+	font-family: arial, helvetica, geneva, sans-serif;
+	font-weight:bold;
+	border-bottom:dotted 1px #7a6a51;
+	margin-bottom:5px;
+}
+
+#container div.basictext {
+  display:block;
+	clear:both;
+	font-size:9pt;
+	font-family: arial, helvetica, geneva, sans-serif;
+	margin-left:3px;
+	margin-right:3px;
+	padding:8px;
+	line-height:1.6em;
+	margin-bottom:20px;
+}
+
+#container div.basictext span.green {
+color:#108e25;
+}
+
+/*** basic text here ***/
+
+#container div.basictext {
+  display:block;
+	clear:both;
+	padding:8px;
+	font-size:11pt;
+}
+
+#container div.basictext a {
+  color:#7a6a51;
+	text-decoration:underline;
+}
+
+#container div.basictext a:hover {
+  text-decoration:none;
+}
+
+#container div.maintext {
+  display:block;
+	clear:both;
+	font-size:11pt;
+	font-family: arial, helvetica, geneva, sans-serif;
+	margin-left:3px;
+	margin-right:3px;
+	padding:8px;
+	line-height:1.6em;
+	margin-bottom:5px;
+}
+
+#container div.maintext span.green {
+  color:#108e25;
+}
+
+#container div.maintext a {
+  text-decoration:underline;
+	color:#7a6a51;
+}
+
+#container div.maintext_narrow {
+  display:block;
+	clear:both;
+	font-size:9pt;
+	font-family: arial, helvetica, geneva, sans-serif;
+	padding:8px;
+	line-height:1.6em;
+	margin-bottom:10px;
+	margin-top:15px;
+	width:500px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+/* property to rent listing styles */
+
+#container #contentholder div.content div.propertyrow_on {
+  display:table;
+	clear:both;
+	width:785px;
+	background:#f3e8cb;
+	border-top:solid 1px #d8af52;
+	border-bottom:solid 2px #d8af52;
+	margin-left:auto;
+	margin-right:auto;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#container #contentholder div.content div.propertyrow_on div.cell {
+  display:block;
+	float:left;
+}
+
+#container #contentholder div.content div.propertyrow_on span.cell {
+  display:block;
+	float:left;
+}
+
+#container #contentholder div.content div.propertyrow {
+  display:table;
+	clear:both;
+	width:785px;
+	background:#ffffff;
+	border-bottom:solid 1px #eeeeee;
+	margin-left:auto;
+	margin-right:auto;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#container #contentholder div.content div.propertyrow div.cell {
+  display:block;
+	float:left;
+}
+
+#container #contentholder div.content div.propertyrow span.cell {
+  display:block;
+	float:left;
+}
+
+#container #contentholder div.content div.propertyrow span.datestamp {
+  display:block;
+	padding:5px;
+	font-size:8pt;
+	font-family:tahoma, arial, helvetica, geneva, sans-serif;
+	color:#666666;
+	line-height:1.6em;
+}
+
+#container #contentholder div.content div.propertyrow_on span.datestamp {
+  display:block;
+	padding:5px;
+	font-size:8pt;
+	font-family:tahoma, arial, helvetica, geneva, sans-serif;
+	color:#666666;
+	line-height:1.6em;
+}
+
+#container #contentholder div.content span.letnoimg {
+  display:block;
+	background:#ffffff;
+	width:200px;
+	height:168px;
+	margin-top:5px;
+	margin-left:auto;
+	margin-right:auto;
+	background:url('/application/library/media/let_nopic.png') no-repeat #ffffff;
+	border:solid 1px #cccccc;
+}
+
+#container #contentholder div.content span.notletnoimg {
+  display:block;
+	background:#ffffff;
+	width:200px;
+	height:168px;
+	margin-top:5px;
+	margin-left:auto;
+	margin-right:auto;
+	background:url('/application/library/media/notlet_nopic.png') no-repeat #ffffff;
+	border:solid 1px #cccccc;
+	margin-bottom:5px;
+}
+
+#container #contentholder div.content span.availabledate {
+  display:block;
+	padding:5px;
+	font-size:9pt;
+	color:#ffffff;
+	text-align:center;
+	font-weight:bold;
+	background:#499808;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:3px;
+	margin-top:3px;
+	width:190px;
+}
+
+#container #contentholder div.content span.smalldescription {
+  display:block;
+	clear:both;
+	font-size:11pt;
+	font-weight:bold;
+	text-transform:uppercase;
+	padding:12px;
+	padding-bottom:5px;
+}
+
+#container #contentholder div.content span.description {
+  display:block;
+	clear:both;
+	font-size:10pt;
+	padding:12px;
+	line-height:1.6em;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+#container #contentholder div.content span.letpricelabel {
+  display:block;
+	clear:both;
+	font-size:10pt;
+	padding:12px;
+	line-height:1.6em;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+#container #contentholder div.content span.contact {
+  display:block;
+	clear:both;
+	font-size:10pt;
+	padding:12px;
+	line-height:1.6em;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:8px;
+}
+#container #contentholder div.content span.contactlarge {
+  font-size:12pt;
+	font-weight:bold;
+}
+
+
+#container #contentholder div.content div.picture a{
+  display:block;
+	background:#ffffff;
+	width:200px;
+	margin-top:5px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+	padding:1px;
+}
+
+#container #contentholder div.content div.picture img {
+  display:block;
+  width:200px;
+	height:165px;
+	border:solid 1px #ffffff;
+	z-index:201;
+}
+
+#container #contentholder div.content span.imgcount a{
+  display:block;
+  padding:5px;
+	position:relative;
+	clear:both;
+	background:#000000;
+	text-align:center;
+	color:#ffffff;
+	font-size:8pt;
+	width:190px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:3px;
+/*
+
+  display:block;
+  width:auto;
+	border:solid 1px #ffffff;
+	padding:3px;
+	position:absolute;
+	z-index:200;
+	bottom:0;
+	margin-left:25px;
+	margin-bottom:5px;
+	font-size:8pt;
+	color:#ffffff;
+	background:#000000;
+  opacity:0.6;
+  filter:alpha(opacity=60);
+	*/
+}
+
+#container #contentholder div.content span.imgcount a:hover {
+  text-decoration:underline;
+}
+
+#container #contentholder div.content div.contentspacer {
+  display:block;
+	width:200px;
+	height:100px;
+	clear:both;
+}
+
+#container #contentholder div.content div.pageholder {
+  display:table;
+	padding:5px;
+	width:775px;
+	margin-left:auto;
+	margin-right:auto;
+	border-bottom:solid 1px #eeeeee;
+	font-size:8pt;
+	font-family:tahoma, arial, helvetica, geneva, sans-serif;
+}
+
+#container #contentholder div.content div.pageholder span.cell {
+  display:block;
+	float:left;
+	padding:5px;
+	margin-right:5px;
+}
+
+#container #contentholder div.content div.pageholder span.pagingon a {
+  display:block;
+	float:left;
+	padding:5px;
+	padding-left:8px;
+	padding-right:8px;
+	margin-right:3px;
+	font-weight:bold;
+}
+
+#container #contentholder div.content div.pageholder span.pagingon a:hover {
+  background:#ead4a3;
+	color:#7a6a51;
+}
+
+#container #contentholder div.content div.pageholder span.pagingoff {
+  display:block;
+	float:left;
+	padding:5px;
+	padding-left:8px;
+	padding-right:8px;
+	margin-right:3px;
+	background:#7a6a51;
+	color:#ffffff;
+	font-weight:bold;
+}
+
+#container #contentholder div.content div.pageholder span.label {
+  display:block;
+	padding:5px;
+}
+
+#container #contentholder div.content div.noadverts {
+  display:block;
+	padding:8px;
+	text-align:center;
+	background:#ffebe8;
+	width:300px;
+	margin-left:auto;
+	margin-right:auto;
+	font-weight:bold;
+	color:#dd3c10;
+}
+
+/* login form */
+
+#container #contentholder div.content div.login_box {
+  display:table;
+	width:350px;
+	padding:5px;
+	background:#e5c28b;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#container #contentholder div.content div.login_box div.login_row {
+  display:table;
+	width:345px;
+	clear:both;
+	background:#f7efe0;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:5px;
+}
+
+#container #contentholder div.content div.login_box span.login_cell {
+  display:block;
+	padding:5px;
+	float:left;
+	margin-right:5px;
+	color:#333333;
+}
+
+#container #contentholder div.content div.login_box span.login_cell input {
+  display:block;
+	width:180px;
+	padding:4px;
+	cursor:pointer;
+}
+
+#container #contentholder div.content div.login_box span.login_cell span.login_button a {
+  display:block;
+	float:left;
+	font-size:9pt;
+	font-weight:bold;
+	color:#ffffff;
+	padding:8px;
+	background:#7a6a51;
+}
+
+#container #contentholder div.content div.login_box span.login_cell span.getpassword a{
+  display:block;
+	padding:8px;
+	text-decoration:underline;
+	font-weight:bold;
+}
+
+#container #contentholder div.content div.login_box span.login_cell span.getpassword a:hover {
+  text-decoration:none;
+}
+
+#container #contentholder div.content div.login_error {
+  display:block;
+	clear:both;
+	margin-bottom:6px;
+	background:#cc0000;
+	font-size:9pt;
+	font-weight:bold;
+	color:#ffffff;
+	padding:8px;
+	margin-left:auto;
+	margin-right:auto;
+	width:345px;
+}
+
+#container #contentholder div.content div.login_box span.login_cell span.login_wait {
+  display:block;
+	width:20px;
+	height:20px;
+	background:url('/application/library/media/template/ajax-loader.gif') no-repeat;
+	background-position:6px 7px;
+	float:left;
+	padding:5px;
+}
+
+#container #contentholder div.content div.globalloggedin {
+  display:block;
+	padding:8px;
+	font-size:8pt;
+	font-family:tahoma, arial, helvetica, geneva, sans-serif;
+	background:#7a6a51;
+	border-bottom:solid 2px #cccccc;
+	color:#ffffff;
+}
+
+#container #contentholder div.content div.globalloggedin a {
+  text-decoration:underline;
+	color:#ffffff;
+	font-weight:bold;
+}
+
+#container #contentholder div.content div.globalloggedin a:hover {
+  text-decoration:none;
+}
+
+#container #contentholder div.content div.nopayment {
+  display:block;
+	clear:both;
+	font-size:9pt;
+	font-family:arial, helvetica, geneva, sans-serif;
+	padding:8px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:10px;
+	width:600px;
+	background:#fff9d7;
+	border:solid 1px #cccccc;
+	line-height:1.6em;
+}
+
+#container #contentholder div.content div.nopayment a {
+  text-decoration:underline;
+	color:#7a6a51;
+}
+
+
+#container #contentholder div.content div.nopayment span.makepayment a{
+  display:block;
+	clear:both;
+	width:180px;
+	padding:8px;
+	font-size:9pt;
+	font-weight:bold;
+	color:#ffffff;
+	background:#000000;
+	margin-top:15px;
+	margin-bottom:15px;
+	text-align:center;
+}
+
+#container #contentholder div.content div.nopayment span.makepayment a:hover {
+  text-decoration:underline;
+}
+
+#container #contentholder div.content div.basicformtable {
+  display:table;
+	width:502px;
+	padding:8px;
+	background:#e5c28b;
+	margin-left:auto;
+	margin-right:auto;
+	-moz-border-radius:5px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder {
+  display:table;
+	clear:both;
+	background:#f7efe0;
+	padding:3px;
+	width:496px;
+	-moz-border-radius:5px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder span.bigtext {
+  display:block;
+	clear:both;
+	font-size:12pt;
+	font-weight:bold;
+	padding:10px;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder span.smalltext {
+  display:block;
+	clear:both;
+	padding:10px;
+	font-size:9pt;
+	padding-top:3px;
+	line-height:1.6em;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder span.smalltext span.green {
+  color:#108e25;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder div.row {
+  display:table;
+	clear:both;
+	margin-bottom:5px;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder div.row span.cell {
+  display:block;
+	float:left;
+	padding:5px;
+	margin-right:5px;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder div.row span.cell span.label {
+  display:block;
+	margin-top:6px;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder div.row span.cell .input {
+  display:block;
+	padding:5px;
+	border:solid 2px #e5c28b;
+	cursor:pointer;
+	width:300px;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder div.row span.cell .radio {
+  cursor:pointer;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder div.row span.cell select {
+  display:block;
+	padding:5px;
+	border:solid 2px #e5c28b;
+	cursor:pointer;
+	width:313px;
+}
+
+#container #contentholder div.content div.basicformtable div.basicformholder div.row span.cell span.basicform_button a {
+  display:block;
+	padding:8px;
+	font-size:9pt;
+	font-weight:bold;
+	color:#ffffff;
+	background:#7a6a51;
+}
+
+
+#container #contentholder div.content div.basicformtable div.basicformholder div.row span.cell span.basicform_wait {
+  display:block;
+	padding:8px;
+	background:url('/application/library/media/template/ajax-loader.gif') no-repeat;
+	background-position:5px 3px;
+	width:16px;
+	height:16px;
+}
+
+/* contact form */
+
+#contactform { 
+  display:table;
+	width:778px;
+	line-height:1.6em;
+	font-size:9pt;
+	padding:5px;
+	margin-top:10px;
+}
+
+.contactformspacer {
+  display:block;
+	clear:both;
+	width:20px;
+	height:10px;
+}
+
+#contactform div.cell {
+  display:block;
+	float:left;
+	padding:5px;
+}
+
+#contactform div.cell div.table {
+  display:table;
+	width:435px;
+	clear:both;
+	margin-left:12px;
+	background:#eeeeee;
+	padding-bottom:5px;
+}
+
+#contactform div.cell div.table span.column {
+  display:block;
+	float:left;
+	padding:5px;
+}
+
+#contactform div.cell div.table span.column .input {
+  display:block;
+	padding:5px;
+	font-size:9pt;
+	border:solid 1px #cccccc;
+	padding-left:5px;
+	width:260px;
+	cursor:pointer;
+}
+
+#contactform div.cell div.table span.column .textarea {
+  display:block;
+	padding:5px;
+	font-size:9pt;
+	border:solid 1px #cccccc;
+	padding-left:5px;
+	width:380px;
+	cursor:pointer;
+	resize:none;
+	margin-left:10px;
+	height:160px;
+}
+
+
+#contactform div.cell div.table span.label {
+  display:block;
+	padding:5px;
+	text-align:right;
+	color:#333333;
+	cursor:default;
+}
+
+#contactform div.cell span.basictext {
+  display:block;
+	clear:both;
+	font-size:10pt;
+	line-height:1.9em;
+	color:#333333;
+	font-weight:normal;
+	text-align:left;
+	cursor:default;
+}
+
+#contactform div.cell span.basictext span.bigtext {
+  font-size:14pt;
+	color:#333333;
+	font-weight:bold;
+}
+
+.contactbodyspacer {
+  display:block;
+	clear:both;
+	width:100px;
+	height:20px;
+}
+
+.contacterror {
+  display:block;
+	clear:both;
+	margin-bottom:5px;
+	text-align:left;
+	font-size:9pt;
+	background:#cc0000;
+	color:#ffffff;
+	line-height:1.6em;
+	padding:10px;
+	cursor:default;
+	margin-left:12px;
+}
+
+.contactsent {
+  display:block;
+	clear:both;
+	margin-bottom:5px;
+	text-align:left;
+	font-size:9pt;
+  background:#3e9d31;
+	color:#ffffff;
+	line-height:1.6em;
+	padding:10px;
+	margin-left:12px;
+	cursor:default;
+}
+
+#splash_row {
+  display:table;
+	clear:both;
+	width:750px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:30px;
+}
+
+#splash_row div.cell {
+  display:block;
+	float:left;
+}

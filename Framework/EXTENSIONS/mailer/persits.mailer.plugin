@@ -1,0 +1,58 @@
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' File Name : Persits.Mailer.Plugin
+// ' Function  : Sends mail messages using the Persits.Mailer plugin
+// ' Author    : Patrick Johnson - me@patrickjohnson.co.uk
+// ' Updated   : 1 April 2013
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Send the message
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Sub PersitsMailer( MxBody, MxSubject, MxRecipient, MxReplyTo, MxFrom, MxFromName, MxQueue, MxIsHtml, MxAppend )
+	
+	  MxBody     = MxBody
+		MxSubject  = MxSubject
+		MxFromName = MxFromName
+		MxQueue    = MxQueue
+		MxIsHtml   = MxIsHtml
+		
+		'On Error Resume Next 
+	  
+		If MxAppend = 1 Then
+		  MxBody = MxBody & MxAppendText
+		End If
+
+		Set Mx = CreateObject( "Persits.MailSender" )
+		  Mx.Host = Fw__MxServer
+			Mx.Port = Fw__MxPort
+			
+			If Fw__MxSmtpAuth = 1 Then
+			  Mx.Username = Fw__MxUser
+				Mx.Password = Fw__MxPassword
+			End If
+			
+		Mx.From     = MxFrom
+		Mx.Fromname = MxFromName
+	  Mx.AddAddress MxRecipient
+		Mx.AddReplyTo MxReplyTo
+		Mx.Subject  = MxSubject
+		Mx.Body     = MxBody
+		Mx.IsHtml   = MxIsHtml
+		Mx.Queue    = MxQueue
+		
+		If MxQueue = True OR MxQueue = true Then
+		  Mx.LogonUser Fw__MxSysDomain, Fw__MxSysUsername, Fw__MxSysPassword
+		End If
+		
+		'On Error Resume Next
+		
+		If Err.Number = 0 Then
+		  Mx.Send
+		Else
+		  Response.Write Err.Number & "<br/>" & Err.Description
+		End If
+	
+	End Sub
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+%>

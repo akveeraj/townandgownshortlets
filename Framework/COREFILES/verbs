@@ -1,0 +1,153 @@
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' File Name : Verbs
+// ' Function  : Fetches content using the LoadSourceFile() function
+// ' Author    : Patrick Johnson - me@patrickjohnson.co.uk
+// ' Updated   : 24 March 2013
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Define Variables
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+   fw_Query            = Request.QueryString
+	 fw_StartQuery       = fw_Query
+	 fw_Query            = UrlDecode( fw_Query )
+	 fw_Query            = Replace( fw_Query, "&", ";" )
+	 fw_Query            = Replace( fw_Query, "=", ":" )
+	 fw_Query            = Replace( fw_Query, ";", vbcrlf )
+	 fw_OutPut           = ParseCircuit( "output", fw_Query )
+	 fw_Source           = ParseCircuit( "source", fw_Query )
+	 fw_SourceFolder     = ParseCircuit( "circuit", fw_Query )
+	 fw_SourceFolderLen  = Len( fw_SourceFolder )
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Build Query
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  If fw_SourceFolderLen > "0" Then
+	
+	  fw_Circuit = fw_Source & "." & fw_SourceFolder
+		fw_Array   = Split( fw_Circuit, "." )
+		fw_File    = fw_Array(0)
+		fw_Folder  = fw_Array(1)
+	
+	ElseIf fw_SourceFolder = "" AND Instr( fw_Circuit, "." ) > 0 Then
+	
+	  fw_Circuit = fw_Source
+		fw_Array   = Split( fw_Circuit, "." )
+		fw_File    = fw_Array(0)
+		fw_Folder  = fw_Array(1)
+	
+	End If
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Set Verbs and File Location
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Select Case( fw_Folder )
+	
+	  Case "account", "Account", "ACCOUNT"
+		  fw_FullPath = fw__ContentPath & "/pages/account/dsp_" & fw_File & "." & fw__AppLang
+			Response.ContentType = "text/html"
+			
+		Case "alerts", "Alerts", "ALERTS"
+		  
+			fw_FullPath = Fw__ContentPath & "/alerts/dsp_" & fw_File & "." & fw__AppLang
+			Response.ContentType = "text/html"
+	
+		
+		Case "view", "VIEW", "View", "doc", "DOC", "Doc"
+		
+		  fw_FullPath          = Fw__ContentPath & "/dsp_" & fw_File & "." & Fw__AppLang
+			Response.ContentType = "text/html"
+		
+		Case "actions", "ACTIONS", "Actions"
+		
+		  fw_FullPath          = Fw__ActionsPath & "/act_" & fw_File & "." & Fw__AppLang
+			Response.ContentType = "text/html"
+
+			
+		Case "prototype", "Prototype", "PROTOTYPE"
+		  
+			fw_FullPath          = Fw__AppPath & "/library/javascript/prototype/" & fw_File & ".js"
+			Response.ContentType = "text/javascript"
+			
+		
+		Case "jquery", "Jquery", "JQUERY"
+		
+		  fw_FullPath          = Fw__AppPath & "/library/javascript/jquery/" & fw_File & ".js"
+			Response.ContentType = "text/javascript"
+		
+		
+		Case "scripty", "Scripty", "SCRIPTY"
+		
+		  fw_FullPath          = Fw__AppPath & "/library/javascript/scripty/" & fw_File & ".js"
+			Response.ContentType = "text/javascript"
+		
+		
+		Case "jscript", "Jscript", "JSCRIPT"
+		
+		  fw_FullPath          = Fw__AppPath & "/library/javascript/jscript/" & fw_File & ".js"
+			Response.ContentType = "text/javascript"
+			
+		
+		Case "css", "Css", "CSS"
+		  
+			fw_FullPath          = Fw__AppPath & "/library/stylesheets/" & fw_File & ".css"
+			Response.ContentType = "text/css"
+			
+		Case "ajax", "Ajax", "AJAX"
+		  fw_FullPath          = Fw__ContentPath & "/pages/ajax/dsp_" & fw_File & "." & Fw__AppLang
+			Response.ContentType = "text/html"
+		
+		Case Else
+		  
+			fw_FullPath          = Fw__IndexPath & "/" & Fw__IndexFile & "." & Fw__AppLang
+			Response.ContentType = "text/html"
+			
+	End Select
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Check If File Exists
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CheckSourceFile()
+	  
+		Set FileSys = CreateObject("Scripting.FileSystemObject")
+		  FileObject = FileSys.FileExists( Server.MapPath( fw_FullPath ))
+			
+			If FileObject = True or FileObject = true Then
+			  FilePassed = 1
+			Else
+			  FilePassed = 0
+			End If
+			
+			CheckSourceFile = FilePassed
+		Set FileSys = Nothing
+	
+	End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Load Source File
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Sub LoadSourceFile( fw_Circuit )
+	
+	  If CheckSourceFile = 0 Then
+		
+		  Call PageNotFound()
+		
+		Else
+		
+			If CheckSourceFile = 1 Then
+			  Set GetFile = CreateObject("Scripting.FileSystemObject")
+				If GetFile.FileExists( Server.MapPath( fw_FullPath )) = true or GetFile.FileExists( Server.MapPath( fw_FullPath )) = True Then
+				  Server.Execute( fw_FullPath )
+				End If
+			End If
+			
+		End If
+	
+	End Sub
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+%>

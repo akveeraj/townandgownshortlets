@@ -1,0 +1,81 @@
+<script type='text/javascript'>
+document.observe("dom:loaded", function() {
+ document.title = "New Customer Registration ~ Town and Gown Lettings Ltd. Oxford";
+});
+</script>
+
+<div class='mainheader'>New Customer Registration</div>
+<div class='maintext_narrow'>
+<b>Use the form below to register your personal details.</b><br/><br/>
+	
+	 For Tenants looking for a property, please call us on 01865 30 40 98 or alternatively, 
+	 fill out the form below and we will be in touch shortly to explain our service and discuss your requirements.<br/><br/>
+	 
+	 For Landlords looking for Tenants, registration is free, but please also fill out the form below and we will be in touch in order
+	  to book an appointment to come to view your property. Or alternatively, please call to discuss on 01865 30 40 98.
+	</div>
+
+<div class='basicformtable'>
+  <div class='basicformholder'>
+	
+	  <div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'>&nbsp;</span>
+		  <span class='cell'></span>
+    </div>
+		
+	  <div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'><span class='label'><b>Title</b></span></span>
+		  <span class='cell'>
+			  <select name='title' id='title' autocomplete='off'>
+			  <option value='-'>-- Select a Title --</option>
+			  <option value='-'>------------------------------</option>
+			  <option value='Mr'>Mr</option>
+			  <option value='Mrs'>Mrs</option>
+			  <option value='Miss'>Miss</option>
+			  <option value='Ms'>Ms</option>
+				</select>
+			</span>
+    </div>
+		
+	  <div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'><span class='label'><b>First Name</b></span></span>
+		  <span class='cell'><input type='text' id='firstname' name='firstname' value='' autocomplete='off' placeholder='Required Field' class='input'/></span>
+    </div>
+		
+		<div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'><span class='label'><b>Surname</b></span></span>
+			<span class='cell'><input type='text' id='surname' name='surname' value='' autocomplete='off' placeholder='Required Field' class='input'/></span>
+		</div>
+		
+		<div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'><span class='label'><b>Telephone Number</b></span></span>
+			<span class='cell'><input type='text' id='telephone' name='telephone' value='' autocomplete='off' placeholder='Required Field' class='input'/></span>
+		</div>
+		
+		<div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'><span class='label'><b>Alternative Number</b></span></span>
+			<span class='cell'><input type='text' id='mobile' name='mobile' value='' autocomplete='off' class='input'/></span>
+		</div>
+		
+		<div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'><span class='label'><b>Email Address</b></span></span>
+			<span class='cell'><input type='text' id='email' name='email' value='' autocomplete='off' placeholder='Required Field' class='input'/></span>
+		</div>
+		
+		
+	  <div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'>&nbsp;</span>
+		  <span class='cell'>
+			<span class='basicform_button' id='actionbutton'><a href='javascript://' onclick="NewRegistration();">Continue</a></span>
+			<span class='basicform_wait'   id='formwait' style='display:none;'>&nbsp;</span>
+			</span>
+    </div>
+		
+	  <div class='row'>
+		  <span class='cell' style='width:140px; text-align:right;'>&nbsp;</span>
+		  <span class='cell'></span>
+    </div>
+		
+		
+  </div>
+</div>

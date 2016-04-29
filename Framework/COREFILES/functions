@@ -1,0 +1,277 @@
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' File Name : Functions
+// ' Function  : Holds all basic re-usable subs and public functions
+// ' Author    : Patrick Johnson - me@patrickjohnson.co.uk
+// ' Updated   : 24 March 2013
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' ParseCircuit()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+  
+	Public Function ParseCircuit( FieldName, Response )
+	  Collection = Split( Response, Chr(13) )
+		For i = LBound( Collection ) To UBound( Collection )
+		  Item = Replace( Collection( i ), Chr(10), "" )
+			If Instr( Item, FieldName & ":" ) = 1 Then
+			  ParseCircuit = Right( Item, Len( Item ) - Len( FieldName ) - 1 )
+		Exit For
+		
+		End If
+		Next
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' UrlDecode()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function UrlDecode( String )
+		For Dec = 1 To Len( String )
+		  If Mid( String, Dec, 1 ) = "%" Then
+			  StrUrlDecode = StrUrlDecode & Chr( "&H" & Mid( String, Dec + 1, 2 ))
+				Dec = Dec + 2
+			ElseIf Mid( String, Dec, 1 ) = "+" Then
+			  StrUrlDecode = StrUrlDecode & " "
+			Else
+			  StrUrlDecode = StrUrlDecode & Mid( String, Dec, 1 )
+			End If
+		Next
+		
+		  UrlDecode = StrUrlDecode
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' UrlEncode()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function UrlEncode( String )
+	  StrEncoded = Server.UrlEncode( String )
+		UrlEncode  = StrEncoded
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' HtmlEncode()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function HtmlEncode( String )
+	  StrEncoded = Server.HtmlEncode( String )
+		HtmlEncode = StrEncoded
+	End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' RandomCode()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function RandomCode( String )
+	  NewRandomCode = Sha1( Timer() & Rnd() )
+		NewRandomCode = Left( NewRandomCode, String )
+		RandomCode    = NewRandomCode
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CalculateAge()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CalculateAge( String )
+	  TodaysDate = Date()
+		IntAge     = DateDiff( "yyyy", String, TodaysDate )
+		
+		If TodaysDate < DateSerial( Year( TodaysDate ), Month( String ), Day( String )) Then
+		  IntAge   = IntAge - 1
+		End If
+		
+		CalculateAge = IntAge
+	End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CalculateDaysPassed()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CalcDaysPassed( String )
+	  InputDate  = String
+		TodaysDate = Date()
+		
+		MonthDiff      = DateDiff( "m", InputDate, TodaysDate )
+		DayDiff        = DateDiff( "d", InputDate, TodaysDate )
+		YearDiff       = DateDiff( "yyyy", InputDate, TodaysDate )
+		CalcDaysPassed = DayDiff
+		
+		'If CalcDaysPassed = 0 Then
+		'  CalcDaysPassed = 0
+		'ElseIf CalcDaysPassed = 1 Then
+		'  CalcDaysPassed = CalcDaysPassed
+		'ElseIf CalcDaysPassed > 30 < 32 Then
+		'  CalcDaysPassed = CalcDaysPassed
+		'Else
+		'  CalcDaysPassed = CalcDaysPassed
+		'End If
+		
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' FixSingleQuotes()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function FixSingleQuotes( String )
+	  FixSingleQuotes = Replace( String, "'", "''" )
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CalculateVat()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CalculateVat( VatCode, CartValue )
+	  CalcVat      = FormatNumber( CartValue / 100 * VatCode, 2 )
+		CalculateVat = CalcVat
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' AppendMxDiagnostics()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function AppendMxDiagnostics()
+	  MxMessageId         = Sha1( Timer() & Rnd() )
+		AppendMxDiagnostics = Chr(13) & Chr(13) & _
+		                      "-----------------------------------------------------------------------------------------------------------" & Chr(13) & _
+													" Server Protocol   :" & Request.ServerVariables( "SERVER_PROTOCOL" ) & Chr(13) & _
+													" Remote IP Address :" & Request.ServerVariables( "REMOTE_ADDR" )     & Chr(13) & _
+													" MailServer        :" & Fw_MxServer                                  & Chr(13) & _
+													" TimeStamp         :" & Now                 & Chr(13) & _
+													" Message ID        :" & MxMessageId         & Chr(13) & _
+													" Component         :" & MxSelectedComponent & Chr(13) & _
+													"-----------------------------------------------------------------------------------------------------------"
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' PageNotFound()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function PageNotFound()
+    fw_FileName     = LCase( fw_FullPath )
+		fw_ServerName   = Request.ServerVariables("SERVER_NAME")
+		fw_ServerPort   = Request.ServerVariables("SERVER_PORT")
+		fw_FilePathTmp  = fw_FullPath
+		fw_PathExt      = "." & fw_AppLanguage
+		fw_FilePathTmp  = Replace( fw_FilePathTmp, fw_PathExt, "" )
+		
+		If fw_File = "" Then
+		  fw_Fille = "Null"
+		End If
+		
+		fw_VersionTag = "Fusebox Version: " & fw_Version & " at " & fw_ServerName & " on Port: " & fw_ServerPort
+		
+		If fw_OutPut = 1 Then
+		
+		WriteError    = "Source File `" & fw_File & "` Not Found"
+		
+		Else
+		
+		WriteError    = "<link href='" & Fw__ErrorPath & "style.css?v=" & Sha1( Timer() & Rnd() ) & "' rel='stylesheet' type='text/css'/>" & _
+			              "<div class='fw_error_header'></div>" & _
+								    "<div class='fw_error_box'>" & _
+								    "<span class='fw_error_bigtext'><b>The requested circuit `<span class='fw_error_redtext'>" & fw_File & "." & fw_Folder & "</span>` could not be loaded.</b><br/>Some URLs on this site are case sensitive. Please make sure you have spelled the URL correctly or go back to the <a href='/'>index page</a> and find a relevant link.</span>" & _
+								    "<span class='fw_error_bigtext'><a href='/'>Click here to go to the index page</a></span>" & Chr(13) & _
+								    "<span class='fw_error_midtext'>" & fw_VersionTag & "<br/>" & Chr(13) & _
+								    "EndPath: " & fw_FilePathTmp & "</span>" & Chr(13) & _
+								    "</div>"
+									
+									Response.Redirect "/"
+										
+		End If
+		
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' GetCurrentWeek()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function GetCurrentWeek( String )
+	   CurrentYear     = Year(Now)
+		 CurrentMonth    = Month(Now)
+		 SelectedDay     = Int( DayValue ) 
+		 CurrentDate     = Day(Now) & "/" & Month(Now) & "/" & Year(Now)
+		 FirstOfTheMonth = DateSerial( CurrentYear, CurrentMonth, 1 )
+		 LastOfTheMonth  = DateSerial( CurrentYear, CurrentMonth + 1, 0 )
+		 
+		 Dt = FirstOfTheMonth
+		 
+		 Do Until WeekDay( Dt ) = SelectedDay
+		   Dt = Dt + 1
+		 Loop
+		 
+		 Wk     = 1
+		 SelDay = 0
+		 
+		 Do Until Dt > LastOfTheMonth
+		   Dt = Dt + 7
+			 Wk = Wk + 1
+			 SelDay = SelDay + 1
+		 Loop
+		 
+		 Wk = Wk
+		 
+		 If Wk > "5" Then
+		   Wk = Wk - 1
+		 End If
+		 
+		 GetCurrentWeek = SelDay
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' ConvertToHours()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+  
+	Public Function ConvertToHours( String )
+			TimeMinutes    = String
+			TimeHour       = Int( TimeMinutes / 60 )
+			TimeMin        = TimeMinutes MOD 60
+			TimeString     = TimeHour & ":" & Right( "0" & TimeMin, 2 )
+			ConvertToHours = TimeString
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' GetShowDuration()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function GetShowDuration( StartTime, EndTime )
+		  TmpMins           = DateDiff( "n", StartTime, EndTime )
+			TmpTotalHrs       = TmpMins / 60
+			TmpTotalMins      = TmpMins Mod 60
+			
+			GetShowDuration   = Fix( TmpTotalHrs ) & "." & CInt( TmpTotalMins )
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CountPages( String )
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CountPages( String )
+    if not (int(String) = String) then String = int(String)+1        
+    CountPages = String
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' exFormatDate()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function exFormatDate( strDate, DateTemplate )
+	  If not IsDate(strDate) Then
+      exFormatDate = strDate
+      Exit Function
+    End If
+	
+    DateTemplate = replace(DateTemplate,"%mmmm",MonthName(DatePart("m",strDate),False),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%mmm",MonthName(DatePart("m",strDate),True),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%mm",right("0" & DatePart("m",strDate),2),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%m",DatePart("m",strDate),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%dddd",WeekDayName(DatePart("w",strDate,1),False),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%ddd",WeekDayName(DatePart("w",strDate,1),True),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%dd",right("0" & DatePart("d",strDate),2),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%d",DatePart("d",strDate),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%yyyy",DatePart("yyyy",strDate),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%yy",right(DatePart("yyyy",strDate),2),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%y",cInt(right(DatePart("yyyy",strDate),2)),1,-1,0)
+    exFormatDate = DateTemplate
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+%>

@@ -1,0 +1,110 @@
+.fw_error_header {
+  display:block;
+	margin-left:auto;
+	margin-right:auto;
+	width:483px;
+	height:93px;
+	background:url('/framework/corefiles/errortemplate/fusebox-config-error.png') no-repeat;
+	margin-top:50px;
+}
+
+.fw_error_box {
+  display:block;
+	margin-left:auto;
+	margin-right:auto;
+	border-top:solid 6px #9F8140;
+	background:#eeeeee;
+	width:483px;
+	-moz-border-radius:5px;
+	border-top-left-radius:0px;
+	border-top-right-radius:0px;
+	border-bottom-left-radius:15px;
+	border-bottom-right-radius:15px;
+}
+
+.fw_error_bigtext {
+  display:block;
+	clear:both;
+	font-size:9pt;
+	color:#333333;
+	padding:15px;
+	text-align:left;
+	cursor:default;
+	line-height:1.6em;
+	font-family:arial, helvetica, geneva, sans-serif;
+}
+
+.fw_error_bigtext a {
+  color:#715C30;
+	text-decoration:underline;
+}
+
+.fw_error_redtext {
+  color:#cc0000;
+  cursor:default;
+}
+
+.fw_error_midtext {
+  display:block;
+	clear:both;
+	border-top:solid 1px #ffffff;
+	font-family:times new roman, arial, helvetica, geneva, sans-serif;
+	font-style:italic;
+	padding:10px;
+	padding-top:20px;
+	font-size:10pt;
+}
+
+.fw_error_location {
+}
+
+/*
+.fb_big_error_box {
+  display:block;
+	width:520px;
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+	-moz-border-radius:5px;
+	padding-top:105px;
+	background:url('/fusebox/corefiles/errortemplate/fusebox-config-error.png') no-repeat;
+}
+
+.fb_big_error_text {
+  display:block;
+	line-height:1.3em;
+	color:#333;
+	font-size:16pt;
+	padding:10px;
+}
+.fb_big_error_text_red {
+  color:#cc0000;
+}
+
+.fb_big_error_return {
+  display:block;
+	padding:10px;
+	color:#333;
+	font-weight:bold;
+	word-spacing:2px;
+}
+
+.fb_big_error_return a {
+  color:#333;
+}
+
+.fb_framework_info {
+  display:block;
+	text-align:left;
+	border-top:solid 3px #eee;
+	margin-left:5px; margin-right:5px;
+	margin-top:10px;
+	color:#666;
+	padding:10px;
+	font-style:italic;
+}
+
+.fb_big_info_box {
+}
+
+*/

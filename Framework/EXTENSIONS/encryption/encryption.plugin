@@ -1,0 +1,65 @@
+
+
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------
+// ' Set Up Key Location
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+  FileName  = Fw__EncKeyPath
+  
+// ---------------------------------------------------------------------------------------------------------------------------------
+  
+  Public Function EncodeText( String )
+    String = String
+	Key    = mid(ReadKey(FileName),1,Len(String))
+	
+	For i = 1 to Len(String )
+	  iKeyChar      = ASC(MID(Key,i,1))
+	  iStringChar   = ASC(MID(String,i,1))
+	  iCryptChar    = iKeyChar Xor iStringChar
+	  strEncrypted  = strEncrypted + Chr( iCryptChar )
+	Next
+    
+	EncodeCypherOutput = strEncrypted
+	EncodeText         = StringToHex( EncodeCypherOutput )
+
+  End Function
+  
+// ---------------------------------------------------------------------------------------------------------------------------------
+  
+  Public Function DecodeText( String )
+    
+	String  = HexToString( String )
+	Key     = mid(ReadKey(FileName),1,Len(String))
+	
+	For i = 1 TO Len(String)
+	  iKeyChar      = (ASC(MID(Key,i,1)))
+	  iStringChar   = ASC(MID(String, i,1))
+      iDeCryptChar  = iKeyChar Xor iStringChar
+      strDecrypted  = strDecrypted & Chr( iDecryptChar )
+	  
+	Next
+    
+	DecodeCypherOutput  = strDecrypted
+	DecodeText          = DecodeCypherOutput
+	
+  End Function
+  
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function ReadKey( FileName )
+    Set FSO = Server.CreateObject("Scripting.FileSystemObject")
+	  Set File = FSO.GetFile( FileName )
+	  Set Ts   = File.OpenAsTextStream(1, -2 )
+	  
+	  DO WHILE NOT Ts.AtEndOfStream
+	    KeyFile = KeyFile & Ts.ReadLine
+	  Loop
+	  
+	  ReadKey = KeyFile
+	  
+	Set FSO = Nothing
+  End Function
+  
+// ---------------------------------------------------------------------------------------------------------------------------------
+%>

@@ -1,0 +1,153 @@
+<%
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' File Name : Database
+// ' Function  : Handles all database connections and SQL queries
+// ' Author    : Patrick Johnson - me@patrickjohnson.co.uk
+// ' Updated   : 24 March 2013
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Build Connection String
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   Select Case( Fw__DatabaseType )
+	   
+		 Case(1)
+		   ConnString = "DSN=" & Fw__Odbc_DatabaseName & ";uid=" & Fw__Odbc_Username & ";pwd=" & Fw__Odbc_Password & ";"
+		 	 Case(2)
+		  ConnString = "Driver={" & Fw__DbDriver & "}; SERVER=" & Fw__SQL_DbServer & "; DATABASE=" & Fw__SQL_DBName & "; " & _
+			              "PORT=" & Fw__SQL_DBPort & "; user id=" & Fw__SQL_DbUsername & "; PASSWORD=" & FW__SQL_DBPassword & "; OPTION=3"
+		 
+		 Case(3)
+		   ConnString = "DSN=" & Fw__Odbc_DatabaseName & ";uid=" & Fw__Odbc_Username & ";pwd=" & Fw__Odbc_Password & ";"
+		
+		 Case(4)
+		   ConnString = "Driver={" & Fw__DbDriver & "}; DBQ=" & Fw__Odbc_DatabaseName & "; " & _
+			              "uid=" & Fw__Odbc_Username & ";pwd=" & Fw__Odbc_Password & ";"
+   
+	 End Select
+	 
+	 ConnString = ConnString
+	 
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Define DB Variables
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+   fw_DbString    = ConnString  
+	 Fw_UseDatabase = Fw__UseDatabase
+  
+	 
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Connect()
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  Sub Connect( fw_DBString )    
+		  Set ConnTemp = Server.CreateObject( "adodb.connection" )	  
+				ConnTemp.Mode = 3		
+				ConnTemp.Open fw_DBString
+	
+    End Sub
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' FetchData()
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  If fw_UseDatabase = 1 Then
+		   Sub FetchData( SQL, RsTemp, ConnTemp )
+					   Call Connect( fw_DBString )
+				 
+				 Set RsTemp = Server.CreateObject( "adodb.recordset" )
+				 MySQL      = SQL
+			   RsTemp.Open MySQL, ConnTemp, 1,2
+			 
+			 End Sub
+	End If
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' RandomRecord()
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  If fw_UseDatabase = 1 Then
+		   Sub RandomRecord( SQL, RsTemp, ConnTemp )
+			 
+			   Call Connect( fw_DBString )
+				 
+				 SET RsTemp      = Server.CreateObject( "adodb.recordset" )
+				 MySQL           = SQL
+				 RsTemp.Open MySQL, ConnTemp, 3, 1
+				 IntTotalRecords = RsTemp.RecordCount
+				 Randomize()
+				 IntRandomNumber = Int( IntTotalRecords * Rnd )
+				 RsTemp.Move IntRandomNumber
+			 
+			 End Sub
+	End If
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' PagingData()
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  If fw_UseDatabase = 1 Then
+      Sub PagingData( SQL, RsTemp, ConnTemp, PageLimit )
+	
+	      Call Connect( fw_DBString )
+			
+			  Set RsTemp            = Server.CreateObject( "adodb.recordset" )
+			  RsTemp.CursorLocation = 3
+			  MySQL                 = SQL
+			  RsTemp.Open SQL, ConnTemp
+			  ListCount             = RsTemp.RecordCount
+			  RsTemp.PageSize       = PageLimit
+			  nPages                = RsTemp.PageCount
+	
+	    End Sub
+	End If
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' HorizontalRSet()
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  If fw_UseDatabase = 1 Then
+		   Sub HorizontalRSet( SQL, RsTemp, connTemp, PageLimit )
+			   
+				 Call Connect( fw_DBString )
+				 
+				 Set RsTemp            = Server.CreateObject( "adodb.recordset" )
+				 MySQL                 = SQL
+				 RsTemp.CursorLocation = 3
+				 RsTemp.Open MySQL, ConnTemp
+				 RsTemp.PageSize       = PageLimit
+				 nPages                = RsTemp.PageCount
+				 
+		   End Sub
+	End If
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' SaveRecord()
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  If fw_UseDatabase = 1 Then
+		   Sub SaveRecord( SQL, RsTemp, ConnTemp )
+			   
+				 Call Connect( fw_DBString )
+				 Set RsTemp = ConnTemp.Execute( SQL )
+				 
+			 End Sub
+	End If
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' CloseRecord( Rs, ConnTemp )
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  If fw_UseDatabase = 1 Then
+      Sub CloseRecord( RsTemp, ConnTemp )
+	
+	      On Error Resume Next
+		    RsTemp.Close()
+		    Set RsTemp   = Nothing
+		    Set ConnTemp = Nothing
+	
+	    End Sub
+	End If
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+%>

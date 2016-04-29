@@ -1,0 +1,236 @@
+<%
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ' FileName      : Sha1Encryption.Plugin
+// ' Function      : Encrypts a string to the SHA1 encryption format
+// ' Author        : Patrick Johnson - contact@patrickjohnson.co.uk
+// ' Version       : 6.2.0
+// ' Last Updated  : 21/05/2012 - P Johnson
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function tohex(value)
+  value = clng(value)
+  tohex = lcase(hex(value))
+  do while len(tohex) < 8
+    tohex = "0" & tohex
+  loop
+end function
+
+function tobin(value)
+  dim hexstr
+  hexstr = tohex(value)
+  tobin = ""
+  for i = 1 to len(hexstr)
+    select case mid(hexstr, i, 1)
+      case "f", "F"
+        tobin = tobin & "1111"
+      case "e", "E"
+        tobin = tobin & "1110"
+      case "d", "D"
+        tobin = tobin & "1101"
+      case "c", "C"
+        tobin = tobin & "1100"
+      case "b", "B"
+        tobin = tobin & "1011"
+      case "a", "A"
+        tobin = tobin & "1010"
+      case "9"
+        tobin = tobin & "1001"
+      case "8"
+        tobin = tobin & "1000"
+      case "7"
+        tobin = tobin & "0111"
+      case "6"
+        tobin = tobin & "0110"
+      case "5"
+        tobin = tobin & "0101"
+      case "4"
+        tobin = tobin & "0100"
+      case "3"
+        tobin = tobin & "0011"
+      case "2"
+        tobin = tobin & "0010"
+      case "1"
+        tobin = tobin & "0001"
+      case else
+        tobin = tobin & "0000"
+    end select
+  next
+end function
+
+function bin2dec(binstr)
+  dim flip
+  flip = false
+  bin2dec = clng(0)
+  if left(binstr,1) = "0" then
+    for i = 1 to len(binstr)
+      if mid(binstr,33-i,1)="1" then
+        bin2dec = bin2dec + (2^(i-1))
+      end if
+    next
+  else
+    for i = 1 to len(binstr)
+      if flip then
+        if mid(binstr,33-i,1)="0" then
+          bin2dec = bin2dec - (2^(i-1))
+        end if
+      else
+        if mid(binstr,33-i,1)="1" then
+          bin2dec = bin2dec - (2^(i-1))
+          flip = true
+        end if
+      end if
+    next
+  end if
+end function  
+
+
+function rshift(value,count)
+  dim binstr
+  if count >= 32 then
+    binstr = ""
+  elseif count > 0 then
+    binstr = left(tobin(value), 32-count)
+  else
+    binstr = tobin(value)
+  end if
+  do while len(binstr) < 32
+    binstr = "0" + binstr
+  loop
+  rshift = bin2dec(binstr)  
+end function
+
+function lshift(value,count)
+  dim binstr
+  if count >= 32 then
+    binstr = ""
+  elseif count > 0 then
+    binstr = right(tobin(value), 32-count)
+  else
+    binstr = tobin(value)
+  end if
+  do while len(binstr) < 32
+    binstr = binstr + "0"
+  loop
+  lshift = bin2dec(binstr)
+end function
+
+function rol(value,count)
+  rol = lshift(value,count) or rshift(value,32-count)
+end function
+
+function add32(a, b)
+  dim bina, binb, total, result, carry
+  bina = tobin(a)
+  binb = tobin(b)
+  result = ""
+  carry = "0"
+  for i = 1 to 32
+    total = 0
+    if mid(bina,33-i,1)="1" then total = total + 1
+    if mid(binb,33-i,1)="1" then total = total + 1
+    if carry="1" then total = total + 1
+    select case total
+      case 3
+        carry = "1"
+        result = "1" + result
+      case 2
+        carry = "1"
+        result = "0" + result
+      case 1
+        carry = "0"
+        result = "1" + result
+      case else
+        carry = "0"
+        result = "0" + result
+    end select
+  next
+  add32 = bin2dec(result)    
+end function
+
+function f(b,c,d,t)
+  if t < 20 then
+    f = (b and c) or ((not b) and d)
+  elseif t < 40 then
+    f = b xor c xor d
+  elseif t < 60 then
+    f = (b and c) or (b and d) or (c and d)
+  else
+    f = b xor c xor d
+  end if
+end function
+
+function k(t)
+  if t < 20 then
+    k = clng(1518500249)
+  elseif t < 40 then
+    k = clng(1859775393)
+  elseif t < 60 then
+    k = clng(-1894007588)
+  else
+    k = clng(-899497514)
+  end if
+end function
+
+function pad(message)
+  dim l, n
+  l = len(message)
+  n = (((l+8) \ 64) + 1)*16
+  redim m(n-1)
+  for i = 0 to n-1
+    m(i) = clng(0)
+  next
+  for i = 0 to l-1
+    m(i\4) = m(i\4) or lshift(asc(mid(message,i+1,1)),(24-(i mod 4)*8))
+  next
+  m(l\4) = m(l\4) or lshift(clng(128),(24-(l mod 4)*8))
+  m(n-1) = l*8
+  pad = m
+end function
+
+function sha1(message)
+  dim h0, h1, h2, h3, h4
+  dim a, b, c, d, e, temp
+  dim l, n
+  dim w(79)
+  
+  l = len(message)
+  n = (((l+8) \ 64) + 1)*16
+  m = pad(message)
+  
+  h0 = clng(1732584193)
+  h1 = clng(-271733879)
+  h2 = clng(-1732584194)
+  h3 = clng(271733878)
+  h4 = clng(-1009589776)
+  
+  for block = 0 to n-1 step 16
+    a = h0
+    b = h1
+    c = h2
+    d = h3
+    e = h4
+    for t = 0 to 79
+      if t < 16 then
+        w(t) = m(block + t)
+      else
+        w(t) = rol(w(t-3) xor w(t-8) xor w(t-14) xor w(t-16),1)
+      end if
+      temp = add32(rol(a,5),add32(f(b,c,d,t),add32(e,add32(w(t),k(t)))))
+      e = d
+      d = c
+      c = rol(b,30)
+      b = a
+      a = temp
+    next
+    h0 = add32(h0, a)
+    h1 = add32(h1, b)
+    h2 = add32(h2, c)
+    h3 = add32(h3, d)
+    h4 = add32(h4, e)
+  next
+  sha1 = tohex(h0)+tohex(h1)+tohex(h2)+tohex(h3)+tohex(h4)
+end function
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+%>

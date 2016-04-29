@@ -1,0 +1,301 @@
+
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' File Name : LoadConfig
+// ' Function  : Builds the configuration settings for config.xml
+// ' Author    : Patrick Johnson - me@patrickjohnson.co.uk
+// ' Updated   : 24 March 2013
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Fwk_Password   = "s0d9f8sd0f9s8fs0d9f8sd0f9s0s98ds0d9f8s0df98sdf"
+	Fwk_ConfigPath = "/framework/configuration/xmlconfig"
+	Fwk_ConfigPath = Server.MapPath( Fwk_ConfigPath )
+	Fwk_Debug      = 0
+	EncKey         = Fwk_Password 
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// '' DO NOT EDIT BELOW THIS LINE ''
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Set ObjDoc     = CreateObject("Microsoft.XMLDOM")
+	ObjDoc.ASync   = False
+	ObjDoc.Load( Fwk_ConfigPath )
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Fetch Framework Configuration
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Set Fusebox   = ObjDoc.SelectNodes("config/fusebox")
+	  For Each itemAttrib IN fusebox
+		  Version   = itemAttrib.SelectSingleNode("version").text
+			BuildDate = itemAttrib.SelectSingleNode("builddate").text
+			Revision  = itemAttrib.SelectSingleNode("revision").text
+		Next
+	Set Fusebox   = Nothing
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Fetch Encryption Configuration
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Set Encryption = ObjDoc.SelectNodes("config/encryption")
+	  For Each itemAttrib IN Encryption
+		  UseEncryption = itemAttrib.SelectSingleNode("useencryption").text
+		Next
+	
+	Set Encryption = Nothing
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Fetch Database Configuration
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+	Set Database = ObjDoc.SelectNodes("config/database")
+		For Each itemAttrib IN Database
+		  UseDatabase     = itemAttrib.SelectSingleNode("usedatabase").text
+			DbType          = itemAttrib.SelectSingleNode("dbtype").text
+			DbDriver        = itemAttrib.SelectSingleNode("odbcdriver").text
+			DbName          = itemAttrib.SelectSingleNode("odbcdbname").text
+			DbFileName      = itemAttrib.SelectSingleNode("odbcdbfilename").text
+			DbUserName      = itemAttrib.SelectSingleNode("odbcdbusername").text
+			DbPassword      = itemAttrib.SelectSingleNode("odbcdbpassword").text
+			SQLDbName       = itemAttrib.SelectSingleNode("sqldbname").text
+			SQLDbServer     = itemAttrib.SelectSingleNode("sqldbserver").text
+			SQLDbPort       = itemAttrib.SelectSingleNode("sqldbport").text        ' encrypted
+			SQLDbUsername   = itemAttrib.SelectSingleNode("sqldbusername").text    ' encrypted
+			SQLDbPassword   = itemAttrib.SelectSingleNode("sqldbpassword").text    ' encrypted
+		Next
+	Set Database = Nothing
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Fetch Email Configuration
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Set Email = ObjDoc.SelectNodes("config/email")
+	  For Each itemAttrib IN Email
+		  MxServer       = itemAttrib.SelectSingleNode("mxserver").text
+		  MxPort         = itemAttrib.SelectSingleNode("mxport").text
+			MxUser         = itemAttrib.SelectSingleNode("mxuser").text
+			MxPassword     = itemAttrib.SelectSingleNode("mxpassword").text     ' encrypted
+			MxUseSSL       = itemAttrib.SelectSingleNode("mxusessl").text
+			MxTimeout      = itemAttrib.SelectSingleNode("mxtimeout").text
+			MxSmtpAuth     = itemAttrib.SelectSingleNode("mxsmtpauth").text
+			MxComponent    = itemAttrib.SelectSingleNode("mxcomponent").text
+			MxSysUsername  = itemAttrib.SelectSingleNode("mxsysusername").text  ' encrypted
+			MxSysPassword  = itemAttrib.SelectSingleNode("mxsyspassword").text  ' encrypted
+			MxSysDomain    = itemAttrib.SelectSingleNode("mxsysdomain").text
+		Next
+	Set Email = Nothing
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Fetch Directories Configuration
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Set Directory = ObjDoc.SelectNodes("config/directories")
+	  For Each itemAttrib IN Directory
+		  ImgBucket     = itemAttrib.SelectSingleNode("imgbucket").text
+			AppName       = itemAttrib.SelectSingleNode("appname").text
+			FQDN          = itemAttrib.SelectSingleNode("fqdn").text
+			PrimaryFQDN   = itemAttrib.SelectSingleNode("primaryfqdn").text
+			AdminFQDN     = itemAttrib.SelectSingleNode("adminfqdn").text
+			UseSSL        = itemAttrib.SelectSingleNode("usessl").text
+			SSLPort       = itemAttrib.SelectSingleNode("sslport").text
+			AppLanguage   = itemAttrib.SelectSingleNode("applanguage").text
+			RootPath      = itemAttrib.SelectSingleNode("rootpath").text
+			FrameworkPath = itemAttrib.SelectSingleNode("frameworkpath").text
+			ErrorPath     = itemAttrib.SelectSingleNode("errorpath").text
+			AppPath       = itemAttrib.SelectSingleNode("apppath").text
+			ActionsPath   = itemAttrib.SelectSingleNode("actionspath").text
+			ContentPath   = itemAttrib.SelectSingleNode("contentpath").text
+			TemplatePath  = itemAttrib.SelectSingleNode("templatepath").text
+			IndexPath     = itemAttrib.SelectSingleNode("indexpath").text
+			IndexFile     = itemAttrib.SelectSingleNode("indexfile").text
+		Next
+	Set Directory = Nothing
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Fetch Contact Configuration
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Set Contacts = ObjDoc.SelectNodes("config/contactdetails")
+	  For Each itemAttrib IN Contacts
+      Telephone1  = itemAttrib.SelectSingleNode("telephone1").text
+			Telephone2  = itemAttrib.SelectSingleNode("telephone2").text
+			Address     = itemAttrib.SelectSingleNode("address").text
+			SortCode    = itemAttrib.SelectSingleNode("banksortcode").text
+			Account     = itemAttrib.SelectSingleNode("bankaccount").text
+		Next
+	Set Contacts = Nothing
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Fetch Facebook OpenGraph Configuration
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Set OpenGraph = ObjDoc.SelectNodes("config/fbopengraph")
+	  For Each itemAttrib IN OpenGraph
+			FacebookOGAppId    = itemAttrib.SelectSingleNode("fbappid").text
+			FacebookOGPrefix   = itemAttrib.SelectSingleNode("fbprefix").text
+			FacebookOGSiteName = itemAttrib.SelectSingleNode("fbsitename").text
+		Next
+	Set OpenGraph = Nothing
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Close XML Object
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Set ObjDoc = Nothing
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Decrypt Encrypted Values
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+	
+	If UseEncryption = 1 Then
+	
+	  SQLDbPort      = DeCrypt( SQLDbPort, Fwk_Password )
+	  SQLDbUsername  = DeCrypt( SQLDbUsername, Fwk_Password )
+	  SQLDbPassword  = DeCrypt( SQLDbPassword, Fwk_Password )
+	  SQLDbName      = DeCrypt( SQLDbName, Fwk_Password )
+	  MxUser         = DeCrypt( MxUser, Fwk_Password )
+	  MxPassword     = DeCrypt( MxPassword, Fwk_Password )
+		MxSysUsername  = DeCrypt( MxSysUsername, Fwk_Password )
+		MxSysPassword  = DeCrypt( MxSysPassword, Fwk_Password )
+		
+	Else
+	
+	  SQLDbPort      = SQLDbPort
+		SQLDBUsername  = SQLDbUsername
+		SQLDBPassowrd  = SQLDbPassword
+		SQLDBName      = SQLDBName
+		MxUser         = MxUser
+		MxPassword     = MxPassword
+		MxSysUsername  = MxSysUsername
+		MxSysPassword  = MxSysPassword
+	
+	End If
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Toggle Debugging
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  If Fwk_Debug = 1 Then
+	
+  DebugOutPut = "<table border='1'>" & _
+	              "<tr><td colspan='2'><h2>*** Debugging Mode Is Active ***</h2></td></tr>" & _
+	              "<tr><td>Framework Build Version</td><td>" & Version & "</td></tr>" & _
+	              "<tr><td>Build Date</td><td>" & BuildDate & "</td></tr>" & _
+	              "<tr><td>Revision Number</td><td>" & Revision & "</td></tr>" & _
+	              "<tr><td>Use Encryption</td><td>" & UseEncryption & "</td></tr>" & _
+	              "<tr><td>Use Database</td><td>" & UseDatabase & "</td></tr>" & _
+	              "<tr><td>Database Type</td><td>" & DbType & "</td></tr>" & _
+	              "<tr><td>Db Driver</td><td>" & DbDriver & "</td></tr>" & _
+	              "<tr><td>Database Name (ODBC/Access)</td><td>" & DbName & "</td></tr>" & _
+	              "<tr><td>Database FileName (ODBC/Access)</td><td>" & DbFileName & "</td></tr>" & _
+	              "<tr><td>Database Username (ODBC/Access)</td><td>" & DbUserName & "</td></tr>" & _
+                "<tr><td>Database Password (ODBC/Access)</td><td>" & DbPassword & "</td></tr>" & _
+                "<tr><td>SQLDbServer</td><td>" & SQLDbServer & "</td></tr>" & _
+                "<tr><td>SQLDbPort<br/>** Encrypted Value **</td><td>" & SQLDbPort & "</td></tr>" & _
+                "<tr><td>SQLDbUsername<br/>** Encrypted Value **</td><td>" & SQLDbUsername & "</td></tr>" & _
+                "<tr><td>SQLDbPassword<br/>** Encrypted Value **</td><td>" & SQLDbPassword & "</td></tr>" & _
+								"<tr><td>SQLDbName<br/>** Encrypted Value **</td><td>" & SQLDbName & "</td></tr>" & _
+                "<tr><td>MxServer</td><td>" & MxServer & "</td></tr>" & _
+                "<tr><td>MxPort</td><td>" & MxPort & "</td></tr>" & _
+                "<tr><td>MxUser<br/>** Encrypted Value **</td><td>" & MxUser & "</td></tr>" & _
+                "<tr><td>MxPassword<br/>** Encrypted Value **</td><td>" & MxPassword & "</td></tr>" & _
+                "<tr><td>MxUseSSL</td><td>" & MxUseSSL & "</td></tr>" & _
+                "<tr><td>MxTimeout</td><td>" & MxTimeout & "</td></tr>" & _
+                "<tr><td>MxSmtpAuth</td><td>" & MxSmtpAuth & "</td></tr>" & _
+                "<tr><td>MxComponent</td><td>" & MxComponent & "</td></tr>" & _
+                "<tr><td>MxSysUsername<br/>** Encrypted Value **</td><td>" & MxSysUsername & "</td></tr>" & _
+                "<tr><td>MxSysPassword<br/>** Encrypted Value **</td><td>" & MxSysPassword & "</td></tr>" & _
+                "<tr><td>MxSysDomain</td><td>" & MxSysDomain & "</td></tr>" & _
+                "<tr><td>ImgBucket</td><td>" & ImgBucket & "</td></tr>" & _
+                "<tr><td>App Name</td><td>" & AppName & "</td></tr>" & _
+                "<tr><td>FQ Domain Name</td><td>" & FQDN & "</td></tr>" & _
+                "<tr><td>Primary FQ Domain Name</td><td>" & PrimaryFQDN & "</td></tr>" & _
+								"<tr><td>Admin FQ Domain Name</td><td>" & AdminFQDN & "</td></tr>" & _
+                "<tr><td>UseSSL</td><td>" & UseSSL & "</td></tr>" & _
+                "<tr><td>SSLPort</td><td>" & SSLPort & "</td></tr>" & _
+                "<tr><td>Application Language</td><td>" & AppLanguage & "</td></tr>" & _
+                "<tr><td>Root Path</td><td>" & RootPath & "</td></tr>" & _
+                "<tr><td>Framework Path</td><td>" & FrameworkPath & "</td></tr>" & _
+                "<tr><td>Error Path</td><td>" & ErrorPath & "</td></tr>" & _
+                "<tr><td>Application Path</td><td>" & AppPath & "</td></tr>" & _
+                "<tr><td>Actions Path</td><td>" & ActionsPath & "</td></tr>" & _
+                "<tr><td>Content Path</td><td>" & ContentPath & "</td></tr>" & _
+                "<tr><td>Template Path</td><td>" & TemplatePath & "</td></tr>" & _
+                "<tr><td>Index Path</td><td>" & IndexPath & "</td></tr>" & _
+								"<tr><td>Index File</td><td>" & indexfile & "</td></tr>" & _
+								"<tr><td>FacebookAppId</td><td>" & FacebookOGAppId & "</td></tr>" & _
+                "<tr><td>FacebookOGPrefix</td><td>" & FacebookOGPrefix & "</td></tr>" & _
+                "<tr><td>FacebookOGSiteName</td><td>" & FacebookOGSiteName & "</td></tr>" & _
+								"</table>"
+								
+								fw_output = 1
+								
+								Response.Write DebugOutPut
+								
+	End If
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Set Global Framework Variables
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Fw__BuildVersion         = Version
+  Fw__BuildDate            = BuildDate
+  Fw__RevisionNumber       = Revision
+  Fw__UseEncryption        = UseEncryption
+	Fw__Generator            = "Fusebox v" & Fw__BuildVersion & "( Build 000" & Fw__RevisionNumber & " - " & Fw__BuildDate & " )"
+  
+	Fw__UseDatabase          = UseDatabase
+  Fw__DatabaseType         = DbType
+  Fw__DbDriver             = DbDriver
+  Fw__Odbc_DatabaseName    = DbName
+  Fw__Odbc_FileName        = DbFileName
+  Fw__Odbc_Username        = DbUserName
+  Fw__Odbc_Password        = DbPassword
+  Fw__SQL_DbServer         = SQLDbServer
+  Fw__SQL_DBPort           = SQLDbPort
+  Fw__SQL_DbUsername       = SQLDbUsername
+  FW__SQL_DBPassword       = SQLDbPassword
+  Fw__SQL_DBName           = SQLDbName
+  
+	Fw__MxServer             = MxServer
+  Fw__MxPort               = MxPort
+  Fw__MxUser               = MxUser
+  Fw__MxPassword           = MxPassword
+  Fw__MxUseSSL             = MxUseSSL
+  Fw__MxTimeout            = MxTimeout
+  Fw__MxSmtpAuth           = MxSmtpAuth
+  Fw__MxComponent          = MxComponent
+  Fw__MxSysUsername        = MxSysUsername
+  Fw__MxSysPassword        = MxSysPassword
+  Fw__MxSysDomain          = MxSysDomain
+  
+	Fw__ImgBucket            = ImgBucket
+  Fw__AppName              = AppName
+  Fw__FQDN                 = FQDN
+  Fw__PFQDN                = PrimaryFQDN
+	Fw__AdminFQDN            = AdminFQDN
+  Fw__UseSSL               = UseSSL
+  Fw__SSLPort              = SSLPort
+  Fw__AppLang              = AppLanguage
+	
+	Fw_Telephone1            = Telephone1
+	Fw_Telephone2            = Telephone2
+	Fw_Address               = Address
+	Fw_SortCode              = SortCode
+	Fw_Account               = Account
+  
+	Fw__RootPath             = RootPath
+  Fw__FrameworkPath        = FrameworkPath
+	Fw__ErrorPath            = ErrorPath
+  Fw__AppPath              = AppPath
+  Fw__ActionsPath          = ActionsPath
+  Fw__ContentPath          = ContentPath
+  Fw__TemplatePath         = TemplatePath
+  Fw__IndexPath            = IndexPath
+	Fw__IndexFile            = IndexFile
+	
+	Fw__FbOGAppId            = FacebookOGAppId
+	Fw__FbOGPrefix           = FacebookOGPrefix
+	Fw__FbOGSiteName         = FacebookOGSiteName
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+%>
